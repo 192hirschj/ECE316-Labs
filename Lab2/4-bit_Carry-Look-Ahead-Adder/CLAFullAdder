@@ -1,0 +1,35 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+--uses the Carry Look Ahead Logic for the addition
+
+entity CLA is
+	Port(A,B : in STD_LOGIC_VECTOR (3 downto 0);
+		Cin : in STD_LOGIC;
+		S : out STD_LOGIC_VECTOR (3 downto 0);
+		Cout : out STD_LOGIC);
+end CLA;
+
+architecture behav of CLA is 
+
+component partialFullAdder
+	Port (A, B, Cin : in STD_LOGIC;
+		S, P, G : out STD_LOGIC);
+end component;
+
+signal C1, C2, C3 : STD_LOGIC;
+signal P,G : STD_LOGIC_VECTOR (3 downto 0);
+
+begin
+	PFA0: partialFullAdder port map (A(0), B(0), Cin, S(0), P(0), G(0));
+	PFA1: partialFullAdder port map (A(1), B(1), C1, S(1), P(1), G(1));
+	PFA2: partialFullAdder port map (A(2), B(2), C2, S(2), P(2), G(2));
+	PFA3: partialFullAdder port map (A(3), B(3), C3, S(3), P(3), G(3));
+	
+	C1 <= transport G(0) OR (P(0) AND Cin) after 5 ns;
+	C2 <= transport G(1) OR (P(1) AND G(0)) OR (P(1) AND P(0) AND Cin) after 5 ns;
+	C3 <= transport G(2) OR (P(2) AND G(1)) OR (P(2) AND P(1) AND G(0)) OR (P(2) AND P(1) AND P(0) AND Cin) after 5 ns;
+	Cout <= transport G(3) OR (P(3) AND G(2)) OR (P(3) AND P(2) AND G(1)) OR (P(3) AND P(2) AND P(1) AND G(0)) OR (P(3) AND P(2) AND P(1) AND P(0) AND Cin) after 5 ns;
+	
+
+end behav;
