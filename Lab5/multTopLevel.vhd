@@ -2,11 +2,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity Multiplier is
- port (Din : in std_logic_vector(7 downto 0);
+ port (Din : in STD_LOGIC_VECTOR(7 downto 0);
        Start, LoadA_LSB, LoadA_MSB, LoadB, clk, reset : in std_logic;
-       done : out std_logic;
+       done : out STD_LOGIC;
        result1, result2, result3, result4, result5, result6 : out std_logic_vector(6 downto 0);
-       overflow : out std_logic);
+       overflow : out STD_LOGIC);
 end Multiplier;
 
 Architecture struct of Multiplier is
@@ -25,10 +25,10 @@ Component Accum24bit
 end component;
 
 Component Adder8
- port (A,B : in std_logic_vector(7 downto 0);
-       Cin : in std_logic;
-       S : out std_logic_vector(7 downto 0);
-       Cout : out std_logic);
+ port (A,B : in STD_LOGIC_VECTOR(7 downto 0);
+       Cin : in STD_LOGIC;
+       S : out STD_LOGIC_VECTOR(7 downto 0);
+       Cout : out STD_LOGIC);
 end component;
 
 Component SevenSegmentDisp
