@@ -1,6 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
-
+--top level code
 entity Multiplier is
  port (Din : in STD_LOGIC_VECTOR(7 downto 0);
        Start, LoadA_LSB, LoadA_MSB, LoadB, clk, reset : in std_logic;
